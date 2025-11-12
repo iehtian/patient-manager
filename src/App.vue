@@ -1,43 +1,26 @@
-<script setup lang="ts">
-import Person from "./components/person.vue"
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <Person />
-    </div>
-  </header>
+  <el-container style="height: 100vh;">
+    <el-affix>
+      <el-header height="60px"
+        style="background-color: #409eff; color: white; line-height: 60px; font-size: 20px; padding-left: 20px;">
+        Patient Management System
+      </el-header>
+    </el-affix>
+    <el-main>
+      <NavigateBar />
+    </el-main>
+    <el-footer height="60px"
+      style="background-color: #409eff; color: white; line-height: 60px; font-size: 20px; padding-left: 20px;">
+
+    </el-footer>
+  </el-container>
 
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script lang="ts" setup>
+  import NavigateBar from '@/view/navigate-bar.vue'
+  import { ElFooter } from 'element-plus';
+</script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style></style>
