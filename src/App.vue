@@ -2,16 +2,14 @@
 
   <el-container style="height: 100vh;">
     <el-affix>
-      <el-header height="60px"
-        style="background-color: #409eff; color: white; line-height: 60px; font-size: 20px; padding-left: 20px;">
+      <el-header class="nav">
         Patient Management System
       </el-header>
     </el-affix>
     <el-main>
       <NavigateBar />
     </el-main>
-    <el-footer height="60px"
-      style="background-color: #409eff; color: white; line-height: 60px; font-size: 20px; padding-left: 20px;">
+    <el-footer class="nav">
 
     </el-footer>
   </el-container>
@@ -23,4 +21,13 @@
   import { ElFooter } from 'element-plus';
 </script>
 
-<style></style>
+<style>
+  .nav {
+    background-color: #409eff;
+    color: white;
+    line-height: 60px;
+    font-size: 20px;
+    padding-left: 20px;
+    border-radius: 10px;
+  }
+</style>
