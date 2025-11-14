@@ -4,6 +4,7 @@
     <el-affix>
       <el-header class="nav">
         Patient Management System
+        <AppInput />
       </el-header>
     </el-affix>
     <el-main>
@@ -18,7 +19,7 @@
 
 <script lang="ts" setup>
   import NavigateBar from '@/view/navigate-bar.vue'
-  import { ElFooter } from 'element-plus';
+  import AppInput from '@/components/AppInput.vue'
 </script>
 
 <style>
