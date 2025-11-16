@@ -20,6 +20,8 @@
 <script lang="ts" setup>
   import NavigateBar from '@/view/navigate-bar.vue'
   import AppInput from '@/components/AppInput.vue'
+
+
 </script>
 
 <style>
