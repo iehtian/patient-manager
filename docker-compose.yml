@@ -1,0 +1,15 @@
+services:
+  painter-db:
+    image: mysql
+    container_name: painter-db
+    environment:
+      MYSQL_ROOT_PASSWORD: iehtian
+      MYSQL_DATABASE: painter
+      MYSQL_USER: painter_user
+      MYSQL_PASSWORD: painter_pass
+    ports:
+      - '3307:3306'
+    volumes:
+      - painter-db-data:/var/lib/mysql
+volumes:
+  painter-db-data:
