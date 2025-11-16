@@ -4,11 +4,11 @@
     <el-affix>
       <el-header class="nav">
         Patient Management System
-        <AppInput />
+        <AppInput @update:search-results="show_painter" />
       </el-header>
     </el-affix>
     <el-main>
-      <NavigateBar />
+      <RouterView></RouterView>
     </el-main>
     <el-footer class="nav">
 
@@ -18,9 +18,17 @@
 </template>
 
 <script lang="ts" setup>
-  import NavigateBar from '@/view/navigate-bar.vue'
   import AppInput from '@/components/AppInput.vue'
-
+  import { ref, provide } from 'vue'
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
+  const painterData = ref<unknown[][]>([])
+  provide('painterData', painterData)
+  const show_painter = (data: unknown[][]) => {
+    console.log('Received search results in App.vue:', data)
+    painterData.value = data
+    router.push({ path: '/ShowPainter' })
+  }
 
 </script>
 
