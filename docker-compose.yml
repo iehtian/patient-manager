@@ -11,5 +11,6 @@ services:
       - '3307:3306'
     volumes:
       - painter-db-data:/var/lib/mysql
+    restart: unless-stopped
 volumes:
   painter-db-data:
