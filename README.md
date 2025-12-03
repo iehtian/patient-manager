@@ -1,48 +1,85 @@
-# patient_manage
+项目说明
 
-This template should help get you started developing with Vue 3 in Vite.
+这是一个前后端分离的患者管理示例项目：
+- 前端：Vue 3 + Vite（默认端口 `5173`）
+- 后端：FastAPI + Uvicorn（建议端口 `8000`）
+- 数据库：MySQL（通过 Docker 运行，容器端口 `3306`，宿主机映射到 `3307`）
 
-## Recommended IDE Setup
+目录结构（节选）
+- `src/`：前端源码
+- `backend/`：后端源码（`server.py`、`mysql_server.py` 等）
+- `docker-compose.yml`：数据库服务编排
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+环境准备
+- Node.js `>= 18`
+- Python `>= 3.10`
+- Docker 与 Docker Compose
 
-## Recommended Browser Setup
+数据库启动（Docker MySQL）
+1. 启动容器：
+	```bash
+	docker compose up -d
+	```
+2. 连接信息（来自 `docker-compose.yml`）：
+	- Host: `localhost`
+	- Port: `3307` -> 容器内 `3306`
+	- Database: `painter`
+	- User: `painter_user`
+	- Password: `painter_pass`
+	- Root Password: `iehtian`
+3. 首次启动会在 `painter-db-data` 卷中持久化数据。
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+后端启动（FastAPI + Uvicorn）
+1. 安装依赖（如果使用 `uv`，可直接）：
+	```bash
+	# 使用 pip（如不使用 uv）：
+	python3 -m venv .venv && source .venv/bin/activate
+	pip install -U pip
+	pip install fastapi uvicorn[standard] mysql-connector-python
 
-## Type Support for `.vue` Imports in TS
+	# 或使用 uv（已包含在项目中）
+	./uv pip install fastapi uvicorn[standard] mysql-connector-python
+	```
+2. 启动后端服务：
+	```bash
+	# 进入后端目录并启动 uvicorn
+	uvicorn backend.server:app --host 0.0.0.0 --port 8000 --reload
+	```
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+前端启动（Vue 3 + Vite）
+1. 安装依赖：
+	```bash
+	npm install
+	```
+2. 启动开发服务器：
+	```bash
+	npm run dev
+	```
+3. 默认访问：`http://localhost:5173`
 
-## Customize configuration
+环境变量与配置建议
+- 如果 `backend/mysql_server.py` 需要从环境读取连接配置，建议在项目根目录创建 `.env`（或通过系统环境变量设置）：
+  ```bash
+  # 示例（与 docker-compose 保持一致）
+  MYSQL_HOST=localhost
+  MYSQL_PORT=3307
+  MYSQL_DB=painter
+  MYSQL_USER=painter_user
+  MYSQL_PASSWORD=painter_pass
+  ```
+- 前端如需调用后端接口，建议在代码或 `.env` 中统一配置：
+  ```bash
+  VITE_API_BASE=http://localhost:8000
+  ```
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+常见问题
+- 无法连接数据库：确认 Docker 容器已启动，端口映射为 `3307:3306`，并使用上述凭据连接。
+- CORS 报错：确保前端运行在 `http://localhost:5173`，后端已启动且允许该来源；如端口或域名不同，请在 `backend/server.py` 中调整 `allow_origins`。
+- 依赖安装失败：优先升级包管理器（`pip install -U pip` 或使用 `./uv`）。
 
-## Project Setup
+开发与调试建议
+- 后端开发使用 `--reload` 自动重载；前端使用 Vite 热更新。
+- 数据库初始化或示例数据可在 `backend/mysql_server.py` 中添加初始化逻辑，或使用 SQL 客户端连接到 `localhost:3307` 执行建表与插入脚本。
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+License
+- 见项目根目录 `LICENSE`
