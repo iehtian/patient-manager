@@ -12,7 +12,7 @@
 
 环境准备
 - Node.js `>= 18`
-- Python `>= 3.10`
+- Python `>= 3.12`（与 `pyproject.toml` 要求一致）
 - Docker 与 Docker Compose
 
 数据库启动（Docker MySQL）
@@ -29,21 +29,19 @@
 	- Root Password: `iehtian`
 3. 首次启动会在 `painter-db-data` 卷中持久化数据。
 
-后端启动（FastAPI + Uvicorn）
-1. 安装依赖（如果使用 `uv`，可直接）：
+后端启动（FastAPI + Uvicorn，使用 uv）
+1. 同步依赖（基于 `pyproject.toml` 与 `uv.lock`）：
 	```bash
-	# 使用 pip（如不使用 uv）：
-	python3 -m venv .venv && source .venv/bin/activate
-	pip install -U pip
-	pip install fastapi uvicorn[standard] mysql-connector-python
-
-	# 或使用 uv（已包含在项目中）
-	./uv pip install fastapi uvicorn[standard] mysql-connector-python
+	# 安装或更新到锁定版本
+	./uv sync
 	```
-2. 启动后端服务：
+2. 运行开发服务（两种方式，任选其一）：
 	```bash
-	# 进入后端目录并启动 uvicorn
-	uvicorn backend.server:app --host 0.0.0.0 --port 8000 --reload
+	# 方式 A：使用 uvicorn 直接运行（推荐，支持热重载）
+	./uv run uvicorn backend.server:app --host 0.0.0.0 --port 8000 --reload
+
+	# 方式 B：使用 fastapi-cli（已在依赖中），自动检测并热重载
+	./uv run fastapi dev backend/server.py --host 0.0.0.0 --port 8000
 	```
 
 前端启动（Vue 3 + Vite）
