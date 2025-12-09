@@ -18,16 +18,15 @@
 </template>
 
 <script lang="ts" setup>
-  import AppInput from '@/components/AppInput.vue'
-  import { ref, provide } from 'vue'
+  import AppInput from '@/components/AppShow.vue'
   import { useRouter } from 'vue-router'
+  import type { PainterRow } from '@/types/painter'
+
   const router = useRouter()
-  const painterData = ref<unknown[][]>([])
-  provide('painterData', painterData)
-  const show_painter = (data: unknown[][]) => {
+
+  const show_painter = (data: PainterRow[]) => {
     console.log('Received search results in App.vue:', data)
-    painterData.value = data
-    router.push({ path: '/ShowPainter' })
+    router.push({ name: 'Painters', state: { data } })
   }
 
 </script>
