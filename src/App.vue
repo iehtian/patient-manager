@@ -4,7 +4,7 @@
     <el-affix>
       <el-header class="nav">
         Patient Management System
-        <AppInput @update:search-results="show_painter" />
+        <AppInput />
       </el-header>
     </el-affix>
     <el-main>
@@ -19,15 +19,6 @@
 
 <script lang="ts" setup>
   import AppInput from '@/components/AppShow.vue'
-  import { useRouter } from 'vue-router'
-  import type { PainterRow } from '@/types/painter'
-
-  const router = useRouter()
-
-  const show_painter = (data: PainterRow[]) => {
-    console.log('Received search results in App.vue:', data)
-    router.push({ name: 'Painters', state: { data } })
-  }
 
 </script>
 
