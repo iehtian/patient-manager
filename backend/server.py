@@ -1,11 +1,11 @@
-from backend.mysql_server import select_all_painters
+from backend.pgsql_server import select_all_patients
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
 def main():
-	painters = select_all_painters()
-	for painter in painters:
+	patients = select_all_patients()
+	for painter in patients:
 		print(painter)
 		
 app = FastAPI()
@@ -22,10 +22,10 @@ app.add_middleware(
 async def root():
     return {"message": "Hello World"}
 
-@app.get("/painters")
-async def get_painters():
-    painters = select_all_painters()
-    return {"painters": painters}
+@app.get("/patients")
+async def get_patients():
+    patients = select_all_patients()
+    return {"patients": patients}
 
 if __name__ == "__main__":
 	main()
