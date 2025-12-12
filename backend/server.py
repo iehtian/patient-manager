@@ -1,13 +1,9 @@
-from backend.pgsql_server import select_all_patients
+from backend.pgsql_server import select_all_patients,select_patients_by_name
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-def main():
-	patients = select_all_patients()
-	for patient in patients:
-		print(patient)
-		
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -23,9 +19,15 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/patients")
-async def get_patients():
-    patients = select_all_patients()
+async def get_patients(search: str = ""):
+    patients = select_patients_by_name(search)
     return {"patients": patients}
 
+
+def main():
+    patients = select_all_patients()
+    for patient in patients:
+        print(patient)
+		
 if __name__ == "__main__":
 	main()
