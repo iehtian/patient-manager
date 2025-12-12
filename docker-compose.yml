@@ -1,16 +1,18 @@
+version: '3.8'
+
 services:
   painter-db:
-    image: mysql
+    image: postgres:latest
     container_name: painter-db
     environment:
-      MYSQL_ROOT_PASSWORD: iehtian
-      MYSQL_DATABASE: painter
-      MYSQL_USER: painter_user
-      MYSQL_PASSWORD: painter_pass
+      POSTGRES_PASSWORD: iehtian
+      POSTGRES_DB: painter
+      POSTGRES_USER: painter_user
     ports:
-      - '3307:3306'
+      - '5433:5432'
     volumes:
-      - painter-db-data:/var/lib/mysql
+      - painter-db-data:/var/lib/postgresql # 改为挂载到 /var/lib/postgresql
     restart: unless-stopped
+
 volumes:
   painter-db-data:
