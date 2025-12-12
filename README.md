@@ -23,11 +23,11 @@
 2. 连接信息（来自 `docker-compose.yml`）：
 	- Host: `localhost`
 	- Port: `3307` -> 容器内 `3306`
-	- Database: `painter`
-	- User: `painter_user`
-	- Password: `painter_pass`
+	- Database: `patient`
+	- User: `patient_user`
+	- Password: `patient_pass`
 	- Root Password: `iehtian`
-3. 首次启动会在 `painter-db-data` 卷中持久化数据。
+3. 首次启动会在 `patient-db-data` 卷中持久化数据。
 
 后端启动（FastAPI + Uvicorn，使用 uv）
 1. 同步依赖（基于 `pyproject.toml` 与 `uv.lock`）：
@@ -61,9 +61,9 @@
   # 示例（与 docker-compose 保持一致）
   MYSQL_HOST=localhost
   MYSQL_PORT=3307
-  MYSQL_DB=painter
-  MYSQL_USER=painter_user
-  MYSQL_PASSWORD=painter_pass
+  MYSQL_DB=patient
+  MYSQL_USER=patient_user
+  MYSQL_PASSWORD=patient_pass
   ```
 - 前端如需调用后端接口，建议在代码或 `.env` 中统一配置：
   ```bash

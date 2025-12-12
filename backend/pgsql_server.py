@@ -3,9 +3,9 @@ import psycopg2
 def get_db_connection():
     return  psycopg2.connect(
     host="localhost",
-    user="painter_user",
+    user="patient_user",
     password="iehtian",
-    database="painter",
+    database="patient",
     port="5433"
     )
 

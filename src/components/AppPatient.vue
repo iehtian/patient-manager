@@ -7,7 +7,7 @@
 <script lang="ts" setup>
   import { ref, watchEffect } from 'vue'
   import apiClient from '@/api/axios'
-  import type { PainterRow, PaintersResponse } from '@/types/painter'
+  import type { patientRow, patientsResponse } from '@/types/patient'
 
   const columns = [
     { key: 'name', dataKey: 'name', title: '姓名', width: 160 },
@@ -20,12 +20,12 @@
 
   const tableRows = ref<Array<{ name: string; account: string; date: string; gender: string }>>([])
 
-  const fetchPainters = async (search?: string) => {
+  const fetchpatients = async (search?: string) => {
     try {
-      const response = await apiClient.get<PaintersResponse>('painters', { params: { search } })
-      const painters: PainterRow[] = response.data?.painters ?? []
-      const mapped = painters.map(([name, account, date, gender]) => ({ name, account, date, gender }))
-      console.log('Mapped painters:', mapped)
+      const response = await apiClient.get<patientsResponse>('patients', { params: { search } })
+      const patients: patientRow[] = response.data?.patients ?? []
+      const mapped = patients.map(([name, account, date, gender]) => ({ name, account, date, gender }))
+      console.log('Mapped patients:', mapped)
       tableRows.value = mapped
     } catch (error) {
       console.error('There was an error!', error)
@@ -34,7 +34,7 @@
   }
 
   watchEffect(() => {
-    fetchPainters(props.search)
+    fetchpatients(props.search)
   })
 
 </script>

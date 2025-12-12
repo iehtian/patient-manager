@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import Painters from '@/components/AppPainters.vue'
+import patients from '@/components/AppPatient.vue'
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/painters',
+    redirect: '/patients',
   },
   {
-    path: '/painters',
-    name: 'Painters',
-    component: Painters,
+    path: '/patients',
+    name: 'patients',
+    component: patients,
     props: (route) => {
       return route.query
     },

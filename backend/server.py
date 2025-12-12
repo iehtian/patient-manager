@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 def main():
 	patients = select_all_patients()
-	for painter in patients:
-		print(painter)
+	for patient in patients:
+		print(patient)
 		
 app = FastAPI()
 app.add_middleware(
