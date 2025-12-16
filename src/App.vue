@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-  import AppInput from '@/components/AppShow.vue'
+  import AppInput from '@/components/AppSearchPatient.vue'
 
 </script>
 

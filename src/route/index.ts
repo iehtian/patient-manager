@@ -4,16 +4,9 @@ import patients from '@/components/AppPatient.vue'
 
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    redirect: '/patients',
-  },
-  {
     path: '/patients',
     name: 'patients',
     component: patients,
-    props: (route) => {
-      return route.query
-    },
   },
 ]
 

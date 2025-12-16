@@ -12,6 +12,9 @@
   const input = ref('')
 
   const submitUserForm = () => {
+    if (!input.value) {
+      return
+    }
     router.push({ name: 'patients', query: { search: input.value } })
   }
 </script>
