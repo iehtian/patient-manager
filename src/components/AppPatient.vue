@@ -1,7 +1,8 @@
 <template>
   <div>
     <li v-if="search">搜索条件：{{ search }}</li>
-    <el-table v-if="!loading && tableRows.length" :data="tableRows" :width="700" :height="400">
+    <el-table v-if="!loading && tableRows.length" :data="tableRows" :width="700" :height="400" @row-click="turn2Detail"
+      @cell-mouse-enter="handleCellMouseEnter">
       <el-table-column prop="order" label="编号" width="120" />
       <el-table-column prop="name" label="姓名" width="120" />
       <el-table-column prop="birthDate" label="出生日期" width="120" />
@@ -23,7 +24,8 @@
 
   const search = ref<string | undefined>(undefined)
   const loading = ref(false)
-  const tableRows = ref<Array<{ order: string; name: string; birthDate: string; gender: string }>>([])
+  type TableRow_t = { order: string; name: string; birthDate: string; gender: string }
+  const tableRows = ref<Array<TableRow_t>>([])
 
   const fetchPatients = async (search?: string) => {
     if (!search) {
@@ -61,5 +63,10 @@
     },
     { immediate: true }
   )
-
+  const turn2Detail = (row: TableRow_t) => {
+    console.log('点击了行', row)
+  }
+  const handleCellMouseEnter = (row: TableRow_t) => {
+    console.log('鼠标移入行:', row)
+  }
 </script>
