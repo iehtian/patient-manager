@@ -1,9 +1,9 @@
 <template>
   <div>
     <li v-if="search">搜索条件：{{ search }}</li>
-
-    <el-table-v2 v-if="tableRows.length" :columns="columns" :data="tableRows" :width="700" :height="400" fixed />
-
+    <el-table-v2 v-if="!loading && tableRows.length" :columns="columns" :data="tableRows" :width="700" :height="400"
+      fixed :row-event-handlers="rowEventHandlers" />
+    <p v-else-if="loading">查询中...</p>
     <p v-else-if="search">未查询到患者</p>
     <p v-else>请输入搜索条件</p>
   </div>
@@ -17,6 +17,7 @@
   const route = useRoute()
 
   const search = ref<string | undefined>(undefined)
+  const loading = ref(false)
 
   const columns = [
     { key: 'name', dataKey: 'name', title: '姓名', width: 160 },
@@ -29,9 +30,11 @@
   const fetchPatients = async (search?: string) => {
     if (!search) {
       tableRows.value = []
+      loading.value = false
       return
     }
 
+    loading.value = true
     try {
       const response = await apiClient.get<patientsResponse>('patients', {
         params: { search }
@@ -46,6 +49,8 @@
     } catch (error) {
       console.error(error)
       tableRows.value = []
+    } finally {
+      loading.value = false
     }
   }
 
@@ -57,4 +62,10 @@
     },
     { immediate: true }
   )
+  const rowEventHandlers = {
+    onClick: ({ rowData }: { rowData: { name: string } }) => {
+      console.log('Row clicked:', rowData)
+    }
+  }
+
 </script>
