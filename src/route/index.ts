@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import patients from '@/components/AppPatient.vue'
+import patient_show from '@/view/AppPatient.vue'
+
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/patients',
     name: 'patients',
-    component: patients,
+    component: patient_show,
   },
 ]
 
